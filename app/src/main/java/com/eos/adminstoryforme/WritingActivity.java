@@ -28,6 +28,8 @@ import java.io.IOException;
 
 public class WritingActivity extends AppCompatActivity {
 
+    int author_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +68,7 @@ public class WritingActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
                         String contents = jsonObject.getString("contents");
+                        author_id = jsonObject.getInt("author_id");
                         int permission = jsonObject.getInt("permission");
                         //webView.setHtml(contents, new HtmlResImageGetter(WritingActivity.this));
 
@@ -98,6 +101,7 @@ public class WritingActivity extends AppCompatActivity {
             RequestBody requestBody = new FormBody.Builder()
                     .add("writing_id", Integer.toString(writing_id))
                     .add("permission", Integer.toString(permissionParam))
+                    .add("author_id", Integer.toString(author_id))
                     .build();
 
             Request request = new Request.Builder()
