@@ -12,16 +12,16 @@
         android:layout_height="wrap_content"
         android:background="#fba9b9"
         android:minHeight="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintTop_toTopOf="parent">
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="글 목록"
             android:layout_gravity="center"
-            android:id="@+id/toolbar_title"
+            android:text="글 목록"
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -29,12 +29,11 @@
         android:id="@+id/rvMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/tbMain"
-        app:layout_constraintBottom_toTopOf="@+id/btnMainChange"/>
+        app:layout_constraintBottom_toTopOf="@+id/btnMainChange"
+        app:layout_constraintTop_toBottomOf="@+id/tbMain" />
 
     <TextView
         android:id="@+id/tvNothing"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="아무\n것도\n없어요."
@@ -42,6 +41,7 @@
         android:textColor="#fba9b9"
         android:textSize="30dp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/rvMain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,32 @@
         android:id="@+id/btnMainChange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="게시 허용된 글 보기"/>
+        android:text="게시 허용된 글 보기"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="공지 생성"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tbMain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="공지목록"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="@+id/tbMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

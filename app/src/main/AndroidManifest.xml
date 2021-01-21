@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.eos.adminstoryforme">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AdminStoryForMe"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WritingActivity"></activity>
+        <activity android:name=".NoticeList"></activity>
+        <activity android:name=".Notice" />
+        <activity android:name=".CreateNoticeActivity" />
+        <activity android:name=".WritingActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -13,6 +13,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okio.BufferedSink;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
     Button btnChange;
     TextView tvNothing;
 
+    Button btn_notice;
+    Button btn_notice_list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         rvMain = findViewById(R.id.rvMain);
         btnChange = findViewById(R.id.btnMainChange);
         tvNothing = findViewById(R.id.tvNothing);
+        btn_notice = findViewById(R.id.button);
+        btn_notice_list = findViewById(R.id.button2);
 
         client = new OkHttpClient();
         gson = new Gson();
@@ -104,6 +110,22 @@ public class MainActivity extends AppCompatActivity {
                         .build();
 
                 client.newCall(request2).enqueue(callback);
+            }
+        });
+
+        btn_notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateNoticeActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        btn_notice_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, NoticeList.class);
+                startActivity(intent);
             }
         });
     }
