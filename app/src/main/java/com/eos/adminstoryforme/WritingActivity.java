@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -29,6 +30,8 @@ import java.io.IOException;
 public class WritingActivity extends AppCompatActivity {
 
     int author_id;
+    WebView webView;
+    private WebSettings wvs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +40,23 @@ public class WritingActivity extends AppCompatActivity {
 
         TextView tvTitle = findViewById(R.id.tlWTitle);
         Button btnPermission = findViewById(R.id.btnPermission);
-        WebView webView = findViewById(R.id.wvWriting);
-        //HtmlTextView webView = findViewById(R.id.wvWriting);
+        webView = findViewById(R.id.wvWriting);
+        webView.setWebViewClient(new WebViewClient());
+        wvs = webView.getSettings();
+        wvs.setJavaScriptCanOpenWindowsAutomatically(true);
+        wvs.setSupportMultipleWindows(false);
+        wvs.setLoadWithOverviewMode(false);
+        wvs.setUseWideViewPort(false);
+        wvs.setSupportZoom(false);
+        wvs.setBuiltInZoomControls(false);
+        wvs.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        wvs.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+        wvs.setDomStorageEnabled(true);
+        wvs.setTextZoom(100);
+        wvs.setJavaScriptEnabled(true);
+        wvs.setAllowFileAccess(true);
+        wvs.setAllowFileAccessFromFileURLs(true);
+        wvs.setAllowUniversalAccessFromFileURLs(true);
 
         OkHttpClient client = new OkHttpClient();
 
