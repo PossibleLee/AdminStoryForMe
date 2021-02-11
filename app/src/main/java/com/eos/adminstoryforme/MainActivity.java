@@ -1,5 +1,6 @@
 package com.eos.adminstoryforme;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,8 +16,12 @@ import okio.BufferedSink;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -41,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     Button btn_notice;
     Button btn_notice_list;
 
+    MainAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
                 ArrayList<WritingData> dataArrayList = gson.fromJson(response.body().string(), new TypeToken<ArrayList<WritingData>>() {}.getType());
-                MainAdapter adapter = new MainAdapter(MainActivity.this, dataArrayList);
+                adapter = new MainAdapter(MainActivity.this, dataArrayList);
 
                 runOnUiThread(new Runnable() {
                     @Override
@@ -93,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Request request2 = new Request.Builder()
                         .post(requestBody2)
-                        .url("http://52.79.183.8:5000/admin/all")
+                        .url(getString(R.string.url) + "admin/all")
                         .build();
 
                 client.newCall(request2).enqueue(callback);
@@ -106,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Request request2 = new Request.Builder()
                         .post(requestBody2)
-                        .url("http://52.79.183.8:5000/admin/all")
+                        .url(getString(R.string.url) + "admin/all")
                         .build();
 
                 client.newCall(request2).enqueue(callback);
@@ -130,6 +137,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+
+//        MenuItem searchItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) searchItem.getActionView();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                return false;
+//            }
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                adapter.getFilter().filter(s);
+//                return false;
+//            }
+//
+//        });
+        return true;
+    }
+
+    // 뒤로가기인듯
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        if (item.getItemId() == android.R.id.home) {
+//            //select back button
+//            finish();
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -140,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
         Request request = new Request.Builder()
                 .post(requestBody)
-                .url("http://52.79.183.8:5000/admin/all")
+                .url(getString(R.string.url) + "admin/all")
                 .build();
 
         client.newCall(request).enqueue(callback);

@@ -71,7 +71,7 @@ public class NoticeList extends AppCompatActivity {
 
         Request request2 = new Request.Builder()
                 .post(requestBody2)
-                .url("http://52.79.183.8:5000/notice")
+                .url(getString(R.string.url)+ "notice")
                 .build();
 
         client.newCall(request2).enqueue(callback);

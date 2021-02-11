@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Story For Me Admin</string>
+    <string name="url">http://13.125.49.204:5000/</string>
 </resources>

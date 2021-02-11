@@ -60,56 +60,56 @@ public class WritingActivity extends AppCompatActivity {
 
         OkHttpClient client = new OkHttpClient();
 
-        Intent intent = getIntent();
-        int writing_id = intent.getIntExtra("writing_id", 0);
-        if(intent.getStringExtra("title").length() > 15)
-            tvTitle.setText(intent.getStringExtra("title").substring(0, 14)+"...");
-        else
-            tvTitle.setText(intent.getStringExtra("title"));
-
-        if(writing_id != 0) {
-            RequestBody requestBody = new FormBody.Builder()
-                    .add("id", Integer.toString(writing_id))
-                    .build();
-
-            Request request = new Request.Builder()
-                    .post(requestBody)
-                    .url("http://52.79.183.8:5000/writing/contents")
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(@NotNull Call call, @NotNull IOException e) { }
-
-                @Override
-                public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-                        String contents = jsonObject.getString("contents");
-                        author_id = jsonObject.getInt("author_id");
-                        int permission = jsonObject.getInt("permission");
-                        //webView.setHtml(contents, new HtmlResImageGetter(WritingActivity.this));
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                webView.loadData(contents, "text/html", "UTF-8");
-                                if(permission == 1) {
-                                    btnPermission.setText("이 글 게시 취소하기");
-                                } else {
-                                    btnPermission.setText("이 글 게시 허용하기");
-                                }
-                            }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
 
         btnPermission.setOnClickListener(v -> {
             int permissionParam;
+            Intent intent = getIntent();
+            int writing_id = intent.getIntExtra("writing_id", 0);
+            if(intent.getStringExtra("title").length() > 15)
+                tvTitle.setText(intent.getStringExtra("title").substring(0, 14)+"...");
+            else
+                tvTitle.setText(intent.getStringExtra("title"));
+
+            if(writing_id != 0) {
+                RequestBody requestBody = new FormBody.Builder()
+                        .add("id", Integer.toString(writing_id))
+                        .build();
+
+                Request request = new Request.Builder()
+                        .post(requestBody)
+                        .url(getString(R.string.url) + "writing/contents")
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) { }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response.body().string());
+                            String contents = jsonObject.getString("contents");
+                            author_id = jsonObject.getInt("author_id");
+                            int permission = jsonObject.getInt("permission");
+                            //webView.setHtml(contents, new HtmlResImageGetter(WritingActivity.this));
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    webView.loadData(contents, "text/html", "UTF-8");
+                                    if(permission == 1) {
+                                        btnPermission.setText("이 글 게시 취소하기");
+                                    } else {
+                                        btnPermission.setText("이 글 게시 허용하기");
+                                    }
+                                }
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
             if(btnPermission.getText().toString().equals("이 글 게시 취소하기")) {
                 permissionParam = 0;
             } else {
@@ -124,7 +124,7 @@ public class WritingActivity extends AppCompatActivity {
 
             Request request = new Request.Builder()
                     .post(requestBody)
-                    .url("http://52.79.183.8:5000/admin/change_permission")
+                    .url(getString(R.string.url) + "admin/change_permission")
                     .build();
 
             client.newCall(request).enqueue(new Callback() {
